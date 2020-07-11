@@ -31,8 +31,6 @@ class NewVisitorTest(FunctionalTest):
         self.wait_for_row_in_list_table('1: Купить павлиньи перья')
         self.wait_for_row_in_list_table('2: Сделать мушку из павлиньих перьев')
 
-        # self.fail('Finish test')
-
     def test_multiple_users_can_start_lists_at_different_urls(self):
         self.browser.get(self.live_server_url)
         inputbox = self.get_item_input_box()
