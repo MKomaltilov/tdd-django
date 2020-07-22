@@ -6,7 +6,7 @@ from .base import FunctionalTest
 
 
 TEST_EMAIL = '1mail@1example1.com'
-SUBJECT = 'Your login link for To-do lists'
+SUBJECT = 'Your login link for To-Do lists'
 
 
 class LoginTest(FunctionalTest):
@@ -15,17 +15,20 @@ class LoginTest(FunctionalTest):
         self.browser.find_element_by_name('email').send_keys(TEST_EMAIL)
         self.browser.find_element_by_name('email').send_keys(Keys.ENTER)
 
-        self.wait_for(lambda: self.assertIn())
+        self.wait_for(lambda: self.assertIn(
+            'Check your email',
+            self.browser.find_element_by_tag_name('body').text
+        ))
 
         email = mail.outbox[0]
         self.assertIn(TEST_EMAIL, email.to)
         self.assertEqual(email.subject, SUBJECT)
 
         self.assertIn('Use this link to log in', email.body)
-        url_seach = re.search(r'http://.+/.+$', email.body)
-        if not url_seach:
+        url_search = re.search(r'http://.+/.+$', email.body)
+        if not url_search:
             self.fail(f'Could not find url in email body:\n{email.body}')
-        url = url_seach.group(0)
+        url = url_search.group(0)
         self.assertIn(self.live_server_url, url)
 
         self.browser.get(url)
