@@ -3,7 +3,7 @@ from django.contrib.auth.backends import ModelBackend
 
 
 class PasswordlessAuthenticationBackend(ModelBackend):
-    def authenticate(self, uid):
+    def authenticate(self, request, uid=None, **kwargs):
         try:
             token = Token.objects.get(uid=uid)
             return User.objects.get(email=token.email)
