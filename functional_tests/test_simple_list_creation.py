@@ -33,10 +33,7 @@ class NewVisitorTest(FunctionalTest):
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
         self.browser.get(self.live_server_url)
-        inputbox = self.get_item_input_box()
-        inputbox.send_keys('Купить павлиньи перья')
-        inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: Купить павлиньи перья')
+        self.add_list_item('Купить павлиньи перья')
 
         edith_list_url = self.browser.current_url
         self.assertRegex(edith_list_url, '/lists/.+')
@@ -49,10 +46,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn('Купить павлиньи перья', page_text)
         self.assertNotIn('Сделать мушку', page_text)
 
-        inputbox = self.get_item_input_box()
-        inputbox.send_keys('Купить молоко')
-        inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: Купить молоко')
+        self.add_list_item('Купить молоко')
 
         francis_list_url = self.browser.current_url
         self.assertRegex(francis_list_url, '/lists/.+')
