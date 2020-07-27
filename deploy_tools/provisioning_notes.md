@@ -16,6 +16,7 @@ New site start to work
 
 * open gunicorn-systemd.template.service
 * change SITENAME for example like staging.my-domain.com
+* change PWD to real email password
 
 ## Folders structure
 
